@@ -1,7 +1,12 @@
+import { SignIn } from "@clerk/clerk-react"
 
 const SignInPage = () => {
   return (
-    <div>SignIn</div>
+    <>
+    <div className="flex justify-center  py-40 item-center">
+    <SignIn />
+    </div>
+    </>
   )
 }
 

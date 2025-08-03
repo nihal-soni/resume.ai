@@ -5,23 +5,25 @@ import App from './App.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import SignInPage from './auth/sign-in/sign-in.tsx'
 import { ThemeProvider } from './context/theme-provider.tsx'
-
 import Home from './home/home.tsx'
 import Dashboard from './dashboard/dashboard.tsx'
+import { ClerkProvider } from '@clerk/clerk-react'
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
 
 const router = createBrowserRouter([
-   {
+  {
     element: <App />,
     children: [
-      {
-        path: '/',
-        element: <Home />
-      }, 
       {
         path: '/dashboard',
         element: <Dashboard />
       }
     ]
+  },
+  {
+    path: '/',
+    element: <Home />
   },
   {
     path: 'auth/sign-in',
@@ -31,8 +33,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </ClerkProvider>
   </StrictMode>,
 )
